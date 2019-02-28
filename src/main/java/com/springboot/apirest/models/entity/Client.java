@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +41,13 @@ public class Client implements Serializable {
 	@Column(name="update_at")
 	@Temporal(TemporalType.DATE)
 	private Date updateAt;
+	
+	@PrePersist
+	public void prePersist() {
+		createAt = new Date();
+		activeAt = new Date();
+		active = true;
+	}
 	
 	public Long getId() {
 		return id;
